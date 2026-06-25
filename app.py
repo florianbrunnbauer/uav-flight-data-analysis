@@ -627,18 +627,17 @@ if uploaded_file:
 
             st.subheader("3D Flight Path")
 
-            fig_3d = px.line_3d(
-                pos_df,
-                x="x",
-                y="y",
-                z="altitude_m",
-                title="Local Position Flight Path",
-                hover_data=["time_s","speed_m_s","horizontal_speed_m_s","vertical_speed_m_s"],
-            )
+            fig_3d = go.Figure()
 
-            fig_3d.update_traces(
-                line=dict(width=4)
-            )
+            fig_3d.add_trace(go.Scatter3d(
+                x= pos_df["x"],
+                y= pos_df["y"],
+                z= pos_df["altitude_m"],
+                mode="lines",
+                name="Full Flight",
+                line=dict(width=4,color="RGB(0,188,255)"),
+                
+            ))
 
             fig_3d.add_trace(go.Scatter3d(
                 x= plot_pos_df["x"],
@@ -673,10 +672,18 @@ if uploaded_file:
             fig_2d = go.Figure()
 
             fig_2d.add_trace(go.Scatter(
+                x=pos_df["y"],
+                y=pos_df["x"],
+                mode="lines",
+                name="Full Flight",
+                line=dict(color="RGB(0,188,255)"),
+            ))
+
+            fig_2d.add_trace(go.Scatter(
                 x=plot_pos_df["y"],
                 y=plot_pos_df["x"],
                 mode="lines",
-                name="Top-Down View",
+                name="Selected Time Period",
                 line=dict(color="RGB(255,0,0)"),
             ))
 
@@ -694,10 +701,18 @@ if uploaded_file:
             fig_altitude = go.Figure()
 
             fig_altitude.add_trace(go.Scatter(
+                x=pos_df["time_s"],
+                y=pos_df["altitude_m"],
+                mode="lines",
+                name="Full Flight",
+                line=dict(color="RGB(0,188,255)"),
+            ))
+
+            fig_altitude.add_trace(go.Scatter(
                 x=plot_pos_df["time_s"],
                 y=plot_pos_df["altitude_m"],
                 mode="lines",
-                name="Altitude Profile",
+                name="Selected Time Period",
                 line=dict(color="RGB(255,0,0)"),
             ))
 
@@ -715,10 +730,18 @@ if uploaded_file:
             fig_range = go.Figure()
 
             fig_range.add_trace(go.Scatter(
+                x=pos_df["time_s"],
+                y=pos_df["distance_from_home_m"],
+                mode="lines",
+                name="Full Flight",
+                line=dict(color="RGB(0,188,255)"),
+            ))
+
+            fig_range.add_trace(go.Scatter(
                 x=plot_pos_df["time_s"],
                 y=plot_pos_df["distance_from_home_m"],
                 mode="lines",
-                name="Distance From Home",
+                name="Selected Time Period",
                 line=dict(color="RGB(255,0,0)"),
             ))
 
