@@ -288,21 +288,66 @@ def format_optional_count(value) -> str:
 
 
 
-def create_psd_heatmap_figure(surface: dict, title: str, colorbar_title: str) -> go.Figure:
-    """Create a 2D time-frequency PSD heatmap from a time-resolved PSD dictionary."""
+def create_psd_heatmap_figure(
+    surface: dict,
+    title: str,
+    colorbar_title: str,
+    use_db_scale: bool = True,
+    relative_db_scale: bool = True,
+    db_min: float = -100.0,
+    db_max: float = 0.0,
+) -> go.Figure:
+    """Create a 2D time-frequency PSD heatmap from a time-resolved PSD dictionary.
+
+    The PSD is calculated in linear physical units. For display, a dB transform
+    can be applied to compress the dynamic range so weaker spectral components
+    remain visible when a strong transient or impulse is present.
+    """
     fig = go.Figure()
+
+    psd = np.asarray(surface["psd"], dtype=float)
+    heatmap_kwargs = {}
+
+    if use_db_scale:
+        finite_positive_psd = psd[np.isfinite(psd) & (psd > 0)]
+
+        if finite_positive_psd.size == 0:
+            z_values = np.full_like(psd, np.nan, dtype=float)
+        elif relative_db_scale:
+            reference_psd = float(np.nanmax(finite_positive_psd))
+            psd_floor = reference_psd * 1e-12
+            z_values = 10.0 * np.log10(np.clip(psd, psd_floor, None) / reference_psd)
+        else:
+            psd_floor = float(np.nanmin(finite_positive_psd)) * 1e-12
+            z_values = 10.0 * np.log10(np.clip(psd, psd_floor, None))
+
+        colorbar_label = "Relative PSD [dB]" if relative_db_scale else f"{colorbar_title} [dB]"
+        hovertemplate = (
+            "Frequency: %{x:.2f} Hz<br>"
+            "Time: %{y:.2f} s<br>"
+            "PSD: %{customdata:.6g}<br>"
+            "Display value: %{z:.2f} dB<extra></extra>"
+        )
+        heatmap_kwargs["zmin"] = float(db_min)
+        heatmap_kwargs["zmax"] = float(db_max)
+    else:
+        z_values = psd
+        colorbar_label = colorbar_title
+        hovertemplate = (
+            "Frequency: %{x:.2f} Hz<br>"
+            "Time: %{y:.2f} s<br>"
+            "PSD: %{z:.6g}<extra></extra>"
+        )
 
     fig.add_trace(go.Heatmap(
         x=surface["frequency_hz"],
         y=surface["time_s"],
-        z=surface["psd"],
-        colorbar=dict(title=colorbar_title),
+        z=z_values,
+        customdata=psd,
+        colorbar=dict(title=colorbar_label),
         name="PSD magnitude",
-        hovertemplate=(
-            "Frequency: %{x:.2f} Hz<br>"
-            "Time: %{y:.2f} s<br>"
-            "PSD: %{z:.6g}<extra></extra>"
-        ),
+        hovertemplate=hovertemplate,
+        **heatmap_kwargs,
     ))
 
     fig.update_layout(
@@ -339,7 +384,7 @@ if uploaded_file:
             "Overview",
             # "3D Flight Path",
             # "Flight Overview",
-            "Basic Flight Statistics",
+            "Flight Phase Detection Test",
             "Hover Analysis",
             "Actuator Output Analysis",
             "Vibration Analysis",
@@ -754,7 +799,7 @@ if uploaded_file:
 
             st.plotly_chart(fig_range,width="stretch")
 
-    elif page == "Basic Flight Statistics":
+    elif page == "Flight Phase Detection Test":
 
         st.header("Flight Phase Detection Test")
 
@@ -2045,6 +2090,44 @@ if uploaded_file:
                     key="vibration_psd_surface_max_frequency_hz",
                 )
 
+                psd_heatmap_use_db_scale = st.checkbox(
+                    "Display PSD heatmap in dB",
+                    value=True,
+                    key="vibration_psd_heatmap_use_db_scale",
+                    help=(
+                        "Applies 10·log10() only for visualization. The PSD "
+                        "calculation itself remains in linear physical units."
+                    ),
+                )
+
+                psd_heatmap_relative_db_scale = st.checkbox(
+                    "Use relative dB scale",
+                    value=True,
+                    key="vibration_psd_heatmap_relative_db_scale",
+                    disabled=not psd_heatmap_use_db_scale,
+                    help=(
+                        "Normalizes each heatmap to its own maximum before the dB "
+                        "conversion. The brightest value is therefore 0 dB."
+                    ),
+                )
+
+                psd_heatmap_db_range = st.slider(
+                    "PSD heatmap dB display range",
+                    min_value=-140,
+                    max_value=20,
+                    value=(-100, 0),
+                    step=5,
+                    key="vibration_psd_heatmap_db_range",
+                    disabled=not psd_heatmap_use_db_scale,
+                    help=(
+                        "Clips the displayed dB color scale. A range of -100 to 0 dB "
+                        "is usually useful for documentation screenshots."
+                    ),
+                )
+                psd_heatmap_db_min, psd_heatmap_db_max = [
+                    float(value) for value in psd_heatmap_db_range
+                ]
+
                 actuator_fft_max_frequency_hz = st.number_input(
                     "Actuator FFT max frequency [Hz]",
                     min_value=1.0,
@@ -3068,6 +3151,10 @@ if uploaded_file:
                     accel_surfaces[selected_accel_surface_col],
                     f"sensor_accel Time-Resolved PSD Heatmap - {accel_surface_columns[selected_accel_surface_col]}",
                     "PSD [(m/s²)²/Hz]",
+                    use_db_scale=psd_heatmap_use_db_scale,
+                    relative_db_scale=psd_heatmap_relative_db_scale,
+                    db_min=psd_heatmap_db_min,
+                    db_max=psd_heatmap_db_max,
                 )
                 st.plotly_chart(fig_accel_heatmap, width="stretch")
 
@@ -3133,6 +3220,10 @@ if uploaded_file:
                     gyro_surfaces[selected_gyro_surface_col],
                     f"sensor_gyro Time-Resolved PSD Heatmap - {gyro_surface_columns[selected_gyro_surface_col]}",
                     "PSD [(rad/s)²/Hz]",
+                    use_db_scale=psd_heatmap_use_db_scale,
+                    relative_db_scale=psd_heatmap_relative_db_scale,
+                    db_min=psd_heatmap_db_min,
+                    db_max=psd_heatmap_db_max,
                 )
                 st.plotly_chart(fig_gyro_heatmap, width="stretch")
 

@@ -1551,6 +1551,7 @@ def _find_accel_axis_columns(sensor_accel_df: pd.DataFrame) -> list[str]:
         ["accel[0]", "accel[1]", "accel[2]"],
         ["acceleration[0]", "acceleration[1]", "acceleration[2]"],
         ["accelerometer_m_s2[0]", "accelerometer_m_s2[1]", "accelerometer_m_s2[2]"],
+        ["accel_x_m_s2", "accel_y_m_s2", "accel_z_m_s2"],
     ]
 
     for candidate_set in candidate_sets:
@@ -1569,6 +1570,8 @@ def _find_gyro_axis_columns(sensor_gyro_df: pd.DataFrame) -> list[str]:
         ["angular_velocity[0]", "angular_velocity[1]", "angular_velocity[2]"],
         ["angular_velocity_rad_s[0]", "angular_velocity_rad_s[1]", "angular_velocity_rad_s[2]"],
         ["angular_rate[0]", "angular_rate[1]", "angular_rate[2]"],
+        ["gyro_x_rad_s", "gyro_y_rad_s", "gyro_z_rad_s"],
+        ["gyro_rad[0]", "gyro_rad[1]", "gyro_rad[2]"],
     ]
 
     for candidate_set in candidate_sets:
@@ -1613,53 +1616,125 @@ def _normalize_xyz_sensor_topic(
 
 
 def analyze_sensor_accel(log: UlgReader) -> pd.DataFrame:
-    """Return cached x/y/z acceleration from sensor_accel for time-domain plots."""
+    """
+    Return high-rate acceleration for vibration analysis.
+
+    Prefer sensor_combined because many PX4 logs store sensor_accel only as a
+    low-rate diagnostic/status topic. Use raw_accelerometer_m_s2 when available,
+    otherwise use accelerometer_m_s2. Fall back to sensor_accel only when
+    sensor_combined is unavailable.
+    """
     try:
-        sensor_accel = log.get_topic("sensor_accel").copy()
+        sensor_combined = log.get_topic("sensor_combined").copy()
+
+        raw_cols = [
+            "raw_accelerometer_m_s2[0]",
+            "raw_accelerometer_m_s2[1]",
+            "raw_accelerometer_m_s2[2]",
+        ]
+
+        filtered_cols = [
+            "accelerometer_m_s2[0]",
+            "accelerometer_m_s2[1]",
+            "accelerometer_m_s2[2]",
+        ]
+
+        if all(col in sensor_combined.columns for col in raw_cols):
+            axis_cols = raw_cols
+            source = "sensor_combined: raw_accelerometer_m_s2[0..2]"
+        elif all(col in sensor_combined.columns for col in filtered_cols):
+            axis_cols = filtered_cols
+            source = "sensor_combined: accelerometer_m_s2[0..2]"
+        else:
+            raise ValueError("sensor_combined does not contain usable accelerometer columns")
+
+        result = pd.DataFrame({
+            "time_s": pd.to_numeric(sensor_combined["time_s"], errors="coerce"),
+            "accel_x_m_s2": pd.to_numeric(sensor_combined[axis_cols[0]], errors="coerce"),
+            "accel_y_m_s2": pd.to_numeric(sensor_combined[axis_cols[1]], errors="coerce"),
+            "accel_z_m_s2": pd.to_numeric(sensor_combined[axis_cols[2]], errors="coerce"),
+        })
+
+        result["accel_magnitude_m_s2"] = np.sqrt(
+            result["accel_x_m_s2"] ** 2 +
+            result["accel_y_m_s2"] ** 2 +
+            result["accel_z_m_s2"] ** 2
+        )
+        result["sensor_accel_axis_columns"] = source
+
+        return (
+            result
+            .replace([np.inf, -np.inf], np.nan)
+            .dropna(subset=["time_s"])
+            .sort_values("time_s")
+            .reset_index(drop=True)
+        )
+
     except ValueError:
-        return pd.DataFrame(columns=[
-            "time_s",
-            "accel_x_m_s2",
-            "accel_y_m_s2",
-            "accel_z_m_s2",
+        sensor_accel = log.get_topic("sensor_accel").copy()
+        axis_cols = _find_accel_axis_columns(sensor_accel)
+
+        return _normalize_xyz_sensor_topic(
+            sensor_accel,
+            axis_cols,
+            ["accel_x_m_s2", "accel_y_m_s2", "accel_z_m_s2"],
             "accel_magnitude_m_s2",
             "sensor_accel_axis_columns",
-        ])
-
-    axis_cols = _find_accel_axis_columns(sensor_accel)
-
-    return _normalize_xyz_sensor_topic(
-        sensor_accel,
-        axis_cols,
-        ["accel_x_m_s2", "accel_y_m_s2", "accel_z_m_s2"],
-        "accel_magnitude_m_s2",
-        "sensor_accel_axis_columns",
-    )
+        )
 
 
 def analyze_sensor_gyro(log: UlgReader) -> pd.DataFrame:
-    """Return cached x/y/z angular velocity from sensor_gyro for time-domain plots."""
+    """
+    Return high-rate gyro data for vibration analysis.
+
+    Prefer sensor_combined because many PX4 logs store sensor_gyro only as a
+    low-rate diagnostic/status topic.
+    """
     try:
-        sensor_gyro = log.get_topic("sensor_gyro").copy()
+        sensor_combined = log.get_topic("sensor_combined").copy()
+
+        axis_cols = [
+            "gyro_rad[0]",
+            "gyro_rad[1]",
+            "gyro_rad[2]",
+        ]
+
+        if not all(col in sensor_combined.columns for col in axis_cols):
+            raise ValueError("sensor_combined does not contain usable gyro columns")
+
+        result = pd.DataFrame({
+            "time_s": pd.to_numeric(sensor_combined["time_s"], errors="coerce"),
+            "gyro_x_rad_s": pd.to_numeric(sensor_combined[axis_cols[0]], errors="coerce"),
+            "gyro_y_rad_s": pd.to_numeric(sensor_combined[axis_cols[1]], errors="coerce"),
+            "gyro_z_rad_s": pd.to_numeric(sensor_combined[axis_cols[2]], errors="coerce"),
+        })
+
+        result["gyro_magnitude_rad_s"] = np.sqrt(
+            result["gyro_x_rad_s"] ** 2 +
+            result["gyro_y_rad_s"] ** 2 +
+            result["gyro_z_rad_s"] ** 2
+        )
+        result["sensor_gyro_axis_columns"] = "sensor_combined: gyro_rad[0..2]"
+
+        return (
+            result
+            .replace([np.inf, -np.inf], np.nan)
+            .dropna(subset=["time_s"])
+            .sort_values("time_s")
+            .reset_index(drop=True)
+        )
+
     except ValueError:
-        return pd.DataFrame(columns=[
-            "time_s",
-            "gyro_x_rad_s",
-            "gyro_y_rad_s",
-            "gyro_z_rad_s",
+        sensor_gyro = log.get_topic("sensor_gyro").copy()
+        axis_cols = _find_gyro_axis_columns(sensor_gyro)
+
+        return _normalize_xyz_sensor_topic(
+            sensor_gyro,
+            axis_cols,
+            ["gyro_x_rad_s", "gyro_y_rad_s", "gyro_z_rad_s"],
             "gyro_magnitude_rad_s",
             "sensor_gyro_axis_columns",
-        ])
-
-    axis_cols = _find_gyro_axis_columns(sensor_gyro)
-
-    return _normalize_xyz_sensor_topic(
-        sensor_gyro,
-        axis_cols,
-        ["gyro_x_rad_s", "gyro_y_rad_s", "gyro_z_rad_s"],
-        "gyro_magnitude_rad_s",
-        "sensor_gyro_axis_columns",
-    )
+        )
 
 
 def compute_accel_psd(
@@ -1862,7 +1937,7 @@ def analyze_vibration(
     phase_stats = compute_vibration_phase_statistics(vibration_df)
 
     try:
-        sensor_accel = log.get_topic("sensor_accel").copy()
+        sensor_accel = analyze_sensor_accel(log)
     except ValueError:
         sensor_accel = pd.DataFrame()
 
