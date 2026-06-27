@@ -144,7 +144,7 @@ The implementation searches for actuator-control topic variants and active contr
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](../methods/time-base.md).
 
 All displayed signals use the relative time column:
 
@@ -184,9 +184,9 @@ The **PSD / FFT settings** expander controls:
 
 The default PSD window duration is `1.0 s`. The default PSD update interval is `1.0 s`. This means the heatmap uses approximately one PSD estimate per second, with each estimate calculated from approximately one second of signal data.
 
-By default, the heatmaps are displayed in relative dB with a `-100 dB` to `0 dB` display range. The PSD calculation itself remains in linear physical units; the dB transform is applied only to the heatmap color values so weaker spectral components remain visible. For the detailed frequency-domain methodology, see [`methods/fft-psd-analysis.md`](methods/fft-psd-analysis.md).
+By default, the heatmaps are displayed in relative dB with a `-100 dB` to `0 dB` display range. The PSD calculation itself remains in linear physical units; the dB transform is applied only to the heatmap color values so weaker spectral components remain visible. For the detailed frequency-domain methodology, see [`methods/fft-psd-analysis.md`](../methods/fft-psd-analysis.md).
 
-![PSD / FFT settings](screenshots/methodology/vibration_analysis_psd_fft_settings.png)
+![PSD / FFT settings](../screenshots/methodology/vibration_analysis_psd_fft_settings.png)
 
 ## Signals shown on the page
 
@@ -207,7 +207,7 @@ These values are calculated from the full cached vibration analysis result. The 
 
 The source label shown in the UI may still say `sensor_accel` for historical readability, but the actual accelerometer source can now be `sensor_combined` or `sensor_accel` depending on the log. The source-field expander should be checked when interpreting the sample rate and FFT axes.
 
-![Vibration health overview](screenshots/methodology/vibration_analysis_health_overview.png)
+![Vibration health overview](../screenshots/methodology/vibration_analysis_health_overview.png)
 
 ### Source fields table
 
@@ -224,7 +224,7 @@ The **Show source fields used for the health overview** expander lists which fie
 
 This table is important because PX4 logs may use different field names, array-expanded schemas, or different high-rate sensor source topics.
 
-![Source fields](screenshots/methodology/vibration_analysis_source_fields_table.png)
+![Source fields](../screenshots/methodology/vibration_analysis_source_fields_table.png)
 
 ### Accel vibration metric vs mean motor output
 
@@ -236,7 +236,7 @@ This actuator-correlation scatter plot compares:
 
 The data is time-aligned by nearest-time merging vibration samples with actuator-output samples inside the selected time range.
 
-![Accel vibration metric vs mean motor output](screenshots/methodology/vibration_analysis_accel_vs_mean_motor_output.png)
+![Accel vibration metric vs mean motor output](../screenshots/methodology/vibration_analysis_accel_vs_mean_motor_output.png)
 
 ### Gyro vibration metric vs motor output spread
 
@@ -248,7 +248,7 @@ This actuator-correlation scatter plot compares:
 
 It helps screen whether gyroscope vibration increases when the controller commands a larger spread between active motor outputs.
 
-![Gyro vibration metric vs motor output spread](screenshots/methodology/vibration_analysis_gyro_vs_motor_output_spread.png)
+![Gyro vibration metric vs motor output spread](../screenshots/methodology/vibration_analysis_gyro_vs_motor_output_spread.png)
 
 ### Dominant frequency vs actuator-control frequency content
 
@@ -259,7 +259,7 @@ This plot compares selected-window frequency content from:
 
 It also marks the selected-window accelerometer dominant frequency and actuator-control dominant frequency when they are available.
 
-![Dominant frequency vs actuator control content](screenshots/methodology/vibration_analysis_frequency_vs_actuator_control_content.png)
+![Dominant frequency vs actuator control content](../screenshots/methodology/vibration_analysis_frequency_vs_actuator_control_content.png)
 
 ### Clipping events overlaid with motor limits
 
@@ -275,7 +275,7 @@ This plot overlays:
 
 The motor limits shown here are observed min/max values from the selected time range. They are not necessarily parameter-based PWM limits.
 
-![Clipping events overlaid with motor limits](screenshots/methodology/vibration_analysis_clipping_events_motor_limits.png)
+![Clipping events overlaid with motor limits](../screenshots/methodology/vibration_analysis_clipping_events_motor_limits.png)
 
 ### Per-phase vibration table
 
@@ -301,7 +301,7 @@ The per-phase table summarizes the selected time range by detected flight phase.
 
 RMS, P95 magnitude, crest factor, dominant frequency, and band power are calculated from mean-centered sensor signals so the values emphasize vibration rather than static offset or gravity.
 
-![Per-phase vibration](screenshots/methodology/vibration_analysis_per_phase_vibration_table.png)
+![Per-phase vibration](../screenshots/methodology/vibration_analysis_per_phase_vibration_table.png)
 
 ### Accelerometer acceleration over time
 
@@ -314,7 +314,7 @@ This time-domain plot shows the normalized accelerometer source selected by the 
 
 The data usually comes from `sensor_combined` when available, with `sensor_accel` used as a fallback. Detected flight phases are shown as background coloring.
 
-![Accelerometer acceleration over time](screenshots/methodology/vibration_analysis_sensor_accel_time_domain.png)
+![Accelerometer acceleration over time](../screenshots/methodology/vibration_analysis_sensor_accel_time_domain.png)
 
 ### Gyroscope angular velocity over time
 
@@ -327,7 +327,7 @@ This time-domain plot shows the normalized gyroscope source selected by the impl
 
 The data usually comes from `sensor_combined` when available, with `sensor_gyro` used as a fallback. Detected flight phases are shown as background coloring.
 
-![Gyroscope angular velocity over time](screenshots/methodology/vibration_analysis_sensor_gyro_time_domain.png)
+![Gyroscope angular velocity over time](../screenshots/methodology/vibration_analysis_sensor_gyro_time_domain.png)
 
 ### `vehicle_imu_status` clipping counters over time
 
@@ -338,7 +338,7 @@ This plot shows normalized cumulative clipping counters:
 
 Detected flight phases are shown as background coloring.
 
-![Clipping counters over time](screenshots/methodology/vibration_analysis_clipping_counters_time_domain.png)
+![Clipping counters over time](../screenshots/methodology/vibration_analysis_clipping_counters_time_domain.png)
 
 ### `vehicle_imu_status` vibration metrics over time
 
@@ -349,7 +349,7 @@ This plot shows:
 
 The two signals are plotted on separate y-axes because their numeric scale may differ.
 
-![Vibration metrics over time](screenshots/methodology/vibration_analysis_vibration_metrics_time_domain.png)
+![Vibration metrics over time](../screenshots/methodology/vibration_analysis_vibration_metrics_time_domain.png)
 
 ### Accelerometer time-resolved PSD heatmap
 
@@ -361,7 +361,7 @@ This heatmap shows how accelerometer frequency content changes over time.
 
 The user can choose the displayed accelerometer signal from the available normalized accelerometer columns. By default, the heatmap uses relative dB display, so the brightest value in the selected heatmap is `0 dB` and weaker content appears as negative dB values.
 
-![Accelerometer PSD heatmap](screenshots/methodology/vibration_analysis_accel_psd_heatmap.png)
+![Accelerometer PSD heatmap](../screenshots/methodology/vibration_analysis_accel_psd_heatmap.png)
 
 ### Gyroscope time-resolved PSD heatmap
 
@@ -373,7 +373,7 @@ This heatmap shows how gyroscope frequency content changes over time.
 
 The user can choose the displayed gyroscope signal from the available normalized gyroscope columns. By default, the heatmap uses relative dB display, so color represents relative spectral strength within that heatmap rather than absolute vibration energy across different plots.
 
-![Gyroscope PSD heatmap](screenshots/methodology/vibration_analysis_gyro_psd_heatmap.png)
+![Gyroscope PSD heatmap](../screenshots/methodology/vibration_analysis_gyro_psd_heatmap.png)
 
 ### Actuator controls FFT
 
@@ -385,7 +385,7 @@ The page also shows:
 - actuator FFT samples
 - actuator FFT channels
 
-![Vibration analysis actuator controls FFT](screenshots/methodology/vibration_analysis_actuator_controls_fft.png)
+![Vibration analysis actuator controls FFT](../screenshots/methodology/vibration_analysis_actuator_controls_fft.png)
 
 ### Acceleration frequency content
 
@@ -393,7 +393,7 @@ This plot shows the full-log summed accelerometer PSD from the selected accelero
 
 The displayed frequency range can be adjusted with the **Displayed PSD frequency range [Hz]** slider.
 
-![Acceleration frequency content](screenshots/methodology/vibration_analysis_acceleration_frequency_content.png)
+![Acceleration frequency content](../screenshots/methodology/vibration_analysis_acceleration_frequency_content.png)
 
 ### Worst flight phase table
 
@@ -408,7 +408,7 @@ The worst-flight-phase table summarizes the phase-based vibration statistics use
 - mean gyroscope vibration metric
 - combined vibration score
 
-![Worst flight phase](screenshots/methodology/vibration_analysis_worst_flight_phase_table.png)
+![Worst flight phase](../screenshots/methodology/vibration_analysis_worst_flight_phase_table.png)
 
 ## Derived signals and formulas
 
@@ -464,7 +464,7 @@ These columns should be checked when interpreting spectral results. They may rep
 
 ### Frequency-domain analysis
 
-For the full shared method, see [`methods/fft-psd-analysis.md`](methods/fft-psd-analysis.md).
+For the full shared method, see [`methods/fft-psd-analysis.md`](../methods/fft-psd-analysis.md).
 
 The Vibration Analysis page uses the shared FFT/PSD method for:
 
@@ -535,7 +535,7 @@ A high crest factor suggests impulsive or peak-heavy behavior.
 
 ### Band power
 
-Per-phase band power integrates PSD over the selected frequency range. For the detailed integration method and interpretation limits, see [`methods/fft-psd-analysis.md`](methods/fft-psd-analysis.md).
+Per-phase band power integrates PSD over the selected frequency range. For the detailed integration method and interpretation limits, see [`methods/fft-psd-analysis.md`](../methods/fft-psd-analysis.md).
 
 ### Worst flight phase score
 

@@ -56,7 +56,7 @@ The quaternion is converted to Euler angles in degrees before hover stability is
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](../methods/time-base.md).
 
 All signals on the page use the relative time column:
 
@@ -96,7 +96,7 @@ The first plot shows the full altitude profile of the flight:
 
 This plot gives context before selecting a hover segment. It helps verify whether the detected hover segments occur during plausible altitude-hold periods.
 
-![Altitude with hover segments](docs/screenshots/methodology/hover_analysis_altitude_with_hover_segments.png)
+![Altitude with hover segments](../screenshots/methodology/hover_analysis_altitude_with_hover_segments.png)
 
 ### Detected hover segments table
 
@@ -119,7 +119,7 @@ The table lists all hover segments that pass the minimum-duration filter. For ea
 
 The table is useful for comparing hover segments before choosing one for detailed inspection.
 
-![Detected hover segments table](docs/screenshots/methodology/hover_analysis_detected_hover_segments_table.png)
+![Detected hover segments table](../screenshots/methodology/hover_analysis_detected_hover_segments_table.png)
 
 ### Hover selector
 
@@ -134,7 +134,7 @@ The selector lists each hover segment using a compact label containing:
 
 The selected segment is then used for all detailed metrics and plots below.
 
-![Hover selector](docs/screenshots/methodology/hover_analysis_hover_selector.png)
+![Hover selector](../screenshots/methodology/hover_analysis_hover_selector.png)
 
 ### Hover metric overview
 
@@ -162,7 +162,7 @@ Each metric is classified as:
 
 The classification is based on user-adjustable lower-is-better reference values.
 
-![Hover metric overview](docs/screenshots/methodology/hover_analysis_hover_metrics_overview.png)
+![Hover metric overview](../screenshots/methodology/hover_analysis_hover_metrics_overview.png)
 
 ### Detailed hover stability metrics
 
@@ -200,7 +200,7 @@ The page displays selected stability metrics as cards grouped by topic:
 - Roll STD
 - Pitch STD
 
-![Detailed hover stability metrics](docs/screenshots/methodology/hover_analysis_detailed_hover_stability_metrics.png)
+![Detailed hover stability metrics](../screenshots/methodology/hover_analysis_detailed_hover_stability_metrics.png)
 
 ### Normalized altitude plot
 
@@ -214,7 +214,7 @@ This plot shows altitude deviation around the selected hover segment mean:
 
 The fixed display range in the current implementation is approximately `-25 cm` to `25 cm`. Values outside this range may be clipped visually, so the metric cards should still be checked.
 
-![Normalized altitude plot](docs/screenshots/methodology/hover_analysis_normalized_altitude.png)
+![Normalized altitude plot](../screenshots/methodology/hover_analysis_normalized_altitude.png)
 
 ### Horizontal drift magnitude plot
 
@@ -227,7 +227,7 @@ This plot shows the horizontal distance from the selected hover segment center:
 
 The fixed display range in the current implementation is approximately `0 cm` to `40 cm`. Values outside this range may be clipped visually.
 
-![Horizontal drift magnitude plot](docs/screenshots/methodology/hover_analysis_horizontal_drift_magnitude.png)
+![Horizontal drift magnitude plot](../screenshots/methodology/hover_analysis_horizontal_drift_magnitude.png)
 
 ### 2D XY hover drift plot
 
@@ -239,7 +239,7 @@ This plot shows the lateral hover movement around the calculated segment center:
 
 The axes are scaled equally so the shape of the drift pattern is not distorted.
 
-![2D XY hover drift plot](docs/screenshots/methodology/hover_analysis_2d_xy_hover_drift.png)
+![2D XY hover drift plot](../screenshots/methodology/hover_analysis_2d_xy_hover_drift.png)
 
 ### Velocity plot
 
@@ -250,7 +250,7 @@ The velocity plot shows:
 
 The plot helps verify whether the selected segment actually behaves like a hover period. Ideally, both signals should remain small and centered near the expected hover thresholds.
 
-![Velocity plot](docs/screenshots/methodology/hover_analysis_velocity.png)
+![Velocity plot](../screenshots/methodology/hover_analysis_velocity.png)
 
 ### Roll / Pitch plot
 
@@ -261,7 +261,7 @@ The roll/pitch plot shows:
 
 The plot is used to inspect attitude variation during hover. Large or periodic roll/pitch motion may indicate aggressive corrections, external disturbance, estimator problems, or controller behavior that should be checked on other pages.
 
-![Roll / Pitch plot](docs/screenshots/methodology/hover_analysis_roll_pitch.png)
+![Roll / Pitch plot](../screenshots/methodology/hover_analysis_roll_pitch.png)
 
 ### Yaw drift plot
 
@@ -274,11 +274,11 @@ The yaw plot shows yaw deviation around the selected segment mean:
 
 Yaw is unwrapped before the statistics are calculated. This prevents a transition through `-180° / +180°` from creating a false yaw jump.
 
-![Yaw drift plot](docs/screenshots/methodology/hover_analysis_yaw_drift.png)
+![Yaw drift plot](../screenshots/methodology/hover_analysis_yaw_drift.png)
 
 ## Derived signals and formulas
 
-The basic local-position formulas are documented in [`methods/local-position-signals.md`](methods/local-position-signals.md). The quaternion-to-Euler conversion is documented in [`methods/quaternion-to-euler.md`](methods/quaternion-to-euler.md).
+The basic local-position formulas are documented in [`methods/local-position-signals.md`](../methods/local-position-signals.md). The quaternion-to-Euler conversion is documented in [`methods/quaternion-to-euler.md`](../methods/quaternion-to-euler.md).
 
 The Hover Analysis page adds segment-specific derived signals.
 

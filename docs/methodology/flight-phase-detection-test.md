@@ -38,7 +38,7 @@ The page uses the processed position dataframe returned by `flight.position`. Th
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](../methods/time-base.md).
 
 All displayed signals use the relative time column:
 
@@ -77,7 +77,7 @@ The altitude plot shows:
 
 The plot helps verify ground, hover, ascend, and descend classification.
 
-![Altitude plot](docs/screenshots/methodology/flight_phase_detection_test_altitude_plot.png)
+![Altitude plot](../screenshots/methodology/flight_phase_detection_test_altitude_plot.png)
 
 ### North position plot
 
@@ -89,7 +89,7 @@ The North position plot shows:
 
 The plot helps identify motion along the local North axis.
 
-![North position plot](docs/screenshots/methodology/flight_phase_detection_test_north_position.png)
+![North position plot](../screenshots/methodology/flight_phase_detection_test_north_position.png)
 
 ### East position plot
 
@@ -101,7 +101,7 @@ The East position plot shows:
 
 The plot helps identify motion along the local East axis.
 
-![East position plot](docs/screenshots/methodology/flight_phase_detection_test_east_position.png)
+![East position plot](../screenshots/methodology/flight_phase_detection_test_east_position.png)
 
 ### Horizontal speed plot
 
@@ -115,7 +115,7 @@ The horizontal speed plot shows:
 
 The reference lines correspond to the current hover/strolling/cruising threshold logic.
 
-![Horizontal speed plot](docs/screenshots/methodology/flight_phase_detection_test_horizontal_speed.png)
+![Horizontal speed plot](../screenshots/methodology/flight_phase_detection_test_horizontal_speed.png)
 
 ### Vertical speed plot
 
@@ -131,7 +131,7 @@ The vertical speed plot shows:
 
 The reference lines correspond to the near-level vertical-speed band and the shallow/rapid climb/descent split.
 
-![Vertical speed plot](docs/screenshots/methodology/flight_phase_detection_test_vertical_speed.png)
+![Vertical speed plot](../screenshots/methodology/flight_phase_detection_test_vertical_speed.png)
 
 ### Phase legend
 
@@ -141,7 +141,7 @@ The phase colors are used as transparent background bands behind the time-series
 
 ## Derived signals and formulas
 
-For the full shared local-position method, see [`methods/local-position-signals.md`](methods/local-position-signals.md).
+For the full shared local-position method, see [`methods/local-position-signals.md`](../methods/local-position-signals.md).
 
 The Flight Phase Detection Test page uses the derived signals created during position preprocessing:
 
@@ -150,7 +150,7 @@ The Flight Phase Detection Test page uses the derived signals created during pos
 - `vertical_speed_m_s` for level flight, ascend, and descend classification
 - `x` and `y` for North/East position context
 
-For the full shared phase method, see [`methods/flight-phase-classification.md`](methods/flight-phase-classification.md).
+For the full shared phase method, see [`methods/flight-phase-classification.md`](../methods/flight-phase-classification.md).
 
 The page uses two phase columns created by the preprocessing:
 

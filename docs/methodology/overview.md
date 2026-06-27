@@ -34,7 +34,7 @@ Fields used by the current position preprocessing but not directly displayed on 
 
 - `az`
 
-The local position frame is treated as a PX4 local NED-style frame. The reused local-position convention and derived signals are documented separately in [`methods/local-position-signals.md`](methods/local-position-signals.md).
+The local position frame is treated as a PX4 local NED-style frame. The reused local-position convention and derived signals are documented separately in [`methods/local-position-signals.md`](../methods/local-position-signals.md).
 
 ### `vehicle_attitude`
 
@@ -52,7 +52,7 @@ The quaternion is converted to Euler angles in degrees. The Overview page curren
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](../methods/time-base.md).
 
 All topics are converted to a relative time axis called `time_s`. The first available ULog timestamp is used as the zero reference, and timestamps are converted from microseconds to seconds:
 
@@ -87,7 +87,7 @@ The page displays three groups of summary metrics:
 - Max Roll
 - Max Pitch
 
-![Summary cards](docs/screenshots/methodology/overview_summary_card.png)
+![Summary cards](../screenshots/methodology/overview_summary_card.png)
 
 ### Phase Statistics table
 
@@ -101,7 +101,7 @@ The phase table lists the detected flight phases and summarizes each phase by:
 - average ground speed
 - average vertical speed
 
-![Phase Statistics table](docs/screenshots/methodology/overview_phase_statistics_table.png)
+![Phase Statistics table](../screenshots/methodology/overview_phase_statistics_table.png)
 
 ### 3D Flight Path
 
@@ -113,7 +113,7 @@ The 3D plot shows the complete local-position trajectory using:
 
 The selected time range is overlaid on top of the full trajectory to make it easier to locate the currently inspected segment within the complete flight. The same full-flight-plus-selected-period convention is also used in the top-down, altitude, and distance-from-home plots.
 
-![3D Flight Path](docs/screenshots/methodology/overview_3d_flight_path.png)
+![3D Flight Path](../screenshots/methodology/overview_3d_flight_path.png)
 
 ### Top-Down Flight Path
 
@@ -126,23 +126,23 @@ The top-down plot shows the complete lateral flight path and overlays the select
 
 The axes are scaled equally so that the geometric shape of the path is not distorted.
 
-![Top-Down Flight Path](docs/screenshots/methodology/overview_top_down_flight_path.png)
+![Top-Down Flight Path](../screenshots/methodology/overview_top_down_flight_path.png)
 
 ### Altitude Over Time
 
 The altitude plot shows the complete `altitude_m` signal over `time_s` and overlays the selected time range. The full trace provides context for the complete climb/descent profile, while the selected trace highlights the currently inspected interval.
 
-![Altitude Over Time](docs/screenshots/methodology/overview_altitude_over_time.png)
+![Altitude Over Time](../screenshots/methodology/overview_altitude_over_time.png)
 
 ### Distance From Home Over Time
 
 The range plot shows the complete `distance_from_home_m` signal over `time_s` and overlays the selected time range. The full trace helps identify the overall range envelope, while the selected trace makes it easier to inspect a specific excursion or return segment. In this project, “home” means the local-frame origin of the log, not necessarily the true takeoff point or an externally validated GPS home position.
 
-![Distance From Home Over Time](docs/screenshots/methodology/overview_distance_from_home.png)
+![Distance From Home Over Time](../screenshots/methodology/overview_distance_from_home.png)
 
 ## Derived signals and formulas
 
-The local-position-derived signals are documented separately in [`methods/local-position-signals.md`](methods/local-position-signals.md). The Overview page uses the following shared signals from that method:
+The local-position-derived signals are documented separately in [`methods/local-position-signals.md`](../methods/local-position-signals.md). The Overview page uses the following shared signals from that method:
 
 - `altitude_m`
 - `speed_m_s`
@@ -150,7 +150,7 @@ The local-position-derived signals are documented separately in [`methods/local-
 - `vertical_speed_m_s`
 - `distance_from_home_m`
 
-The reused attitude conversion is documented separately in [`methods/quaternion-to-euler.md`](methods/quaternion-to-euler.md). The Overview page uses the converted Euler angles:
+The reused attitude conversion is documented separately in [`methods/quaternion-to-euler.md`](../methods/quaternion-to-euler.md). The Overview page uses the converted Euler angles:
 
 - `roll_deg`
 - `pitch_deg`
@@ -231,7 +231,7 @@ These are peak absolute attitude angles over the evaluated log.
 
 ## Flight-phase detection
 
-For the full shared method, see [`methods/flight-phase-classification.md`](methods/flight-phase-classification.md).
+For the full shared method, see [`methods/flight-phase-classification.md`](../methods/flight-phase-classification.md).
 
 The Overview page uses the flight phases calculated from `vehicle_local_position`. Phase classification is based on altitude, horizontal speed, and vertical speed.
 

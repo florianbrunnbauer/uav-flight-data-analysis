@@ -113,7 +113,7 @@ The actuator-output signals are used only as context for body-rate tracking. The
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](../methods/time-base.md).
 
 All displayed signals use the relative time column:
 
@@ -141,13 +141,13 @@ The sidebar phase legend shows the color assigned to each detected flight phase.
 
 ## Setpoint filtering
 
-For the full shared method, see [`methods/tracking-error-metrics.md`](methods/tracking-error-metrics.md).
+For the full shared method, see [`methods/tracking-error-metrics.md`](../methods/tracking-error-metrics.md).
 
 Filtered setpoints are generated with a first-order causal low-pass filter. The current default cutoff is `2.0 Hz`. The filtered setpoints are not meant to replace the original PX4 setpoints; they are an additional diagnostic layer for checking whether high raw tracking error is mainly caused by rapid setpoint changes.
 
 ## Time-offset compensation
 
-For the full shared method, see [`methods/tracking-error-metrics.md`](methods/tracking-error-metrics.md).
+For the full shared method, see [`methods/tracking-error-metrics.md`](../methods/tracking-error-metrics.md).
 
 The page estimates signal lag by cross-correlation between a reference signal and the measured response. The current search limit is approximately `0.5 s`. For a positive estimated lag, the implementation interprets the actual response as delayed relative to the setpoint and compares the actual response against an interpolated setpoint value at `time_s - lag_s`.
 
@@ -155,7 +155,7 @@ For yaw attitude errors, angular wrapping is applied so that crossings around ±
 
 ## Tracking-error metrics
 
-For the full shared method, see [`methods/tracking-error-metrics.md`](methods/tracking-error-metrics.md).
+For the full shared method, see [`methods/tracking-error-metrics.md`](../methods/tracking-error-metrics.md).
 
 For each evaluated axis or signal, the metrics table reports `samples`, `time_offset_s`, `bias`, `mean_abs_error`, `rmse`, `p95_abs`, and `max_abs`. The same metric definitions are used for raw, filtered, raw time-compensated, and filtered time-compensated errors where those rows are available.
 
@@ -192,7 +192,7 @@ Shown summary values include:
 
 All values are recomputed from the selected time window.
 
-![Body-rate summary cards](screenshots/methodology/setpoint_tracking_body_rate_summary_cards.png)
+![Body-rate summary cards](../screenshots/methodology/setpoint_tracking_body_rate_summary_cards.png)
 
 ### Body-rate setpoint vs actual
 
@@ -211,7 +211,7 @@ The selectable axes are:
 
 The y-axis unit is degrees per second.
 
-![Body-rate setpoint vs actual](screenshots/methodology/setpoint_tracking_body_rate_setpoint_vs_actual.png)
+![Body-rate setpoint vs actual](../screenshots/methodology/setpoint_tracking_body_rate_setpoint_vs_actual.png)
 
 ### Body-rate filtered setpoint vs actual
 
@@ -224,7 +224,7 @@ The filtered body-rate plot compares:
 
 This plot is useful for checking whether the original setpoint contains high-frequency content that dominates the raw error metric.
 
-![Body-rate filtered setpoint vs actual](screenshots/methodology/setpoint_tracking_body_rate_filtered_setpoint_vs_actual.png)
+![Body-rate filtered setpoint vs actual](../screenshots/methodology/setpoint_tracking_body_rate_filtered_setpoint_vs_actual.png)
 
 ### Body-rate tracking error
 
@@ -242,7 +242,7 @@ rate_error = rate_setpoint - rate_actual
 
 A horizontal zero line is included so persistent positive or negative bias is easier to identify.
 
-![Body-rate error](screenshots/methodology/setpoint_tracking_body_rate_error.png)
+![Body-rate error](../screenshots/methodology/setpoint_tracking_body_rate_error.png)
 
 ### Tracking error vs actuator effort
 
@@ -260,13 +260,13 @@ rate_error_magnitude = sqrt(roll_error² + pitch_error² + yaw_error²)
 
 The plot is intended as a diagnostic correlation view. High error together with high motor-output spread can indicate high control demand, but it does not prove motor saturation or an airframe defect.
 
-![Tracking error vs actuator effort](screenshots/methodology/setpoint_tracking_error_vs_actuator_effort.png)
+![Tracking error vs actuator effort](../screenshots/methodology/setpoint_tracking_error_vs_actuator_effort.png)
 
 ### Body-rate tracking metrics table
 
 The body-rate metrics table reports raw, filtered, raw time-compensated, and filtered time-compensated error metrics for the available roll, pitch, and yaw rate signals.
 
-![Body-rate metrics](screenshots/methodology/setpoint_tracking_body_rate_metrics_table.png)
+![Body-rate metrics](../screenshots/methodology/setpoint_tracking_body_rate_metrics_table.png)
 
 ### Attitude tracking summary cards
 
@@ -282,7 +282,7 @@ Shown summary values include:
 
 All values are recomputed from the selected time window.
 
-![Attitude summary cards](screenshots/methodology/setpoint_tracking_attitude_summary_cards.png)
+![Attitude summary cards](../screenshots/methodology/setpoint_tracking_attitude_summary_cards.png)
 
 ### Attitude setpoint vs actual
 
@@ -301,7 +301,7 @@ The selectable axes are:
 
 The y-axis unit is degrees.
 
-![Attitude setpoint vs actual](screenshots/methodology/setpoint_tracking_attitude_setpoint_vs_actual.png)
+![Attitude setpoint vs actual](../screenshots/methodology/setpoint_tracking_attitude_setpoint_vs_actual.png)
 
 ### Attitude filtered setpoint vs actual
 
@@ -314,7 +314,7 @@ The filtered attitude plot compares:
 
 Yaw filtering is handled with angle unwrap/wrap logic so wraparound near ±180° does not create artificial jumps in the filtered signal.
 
-![Attitude filtered setpoint vs actual](screenshots/methodology/setpoint_tracking_attitude_filtered_setpoint_vs_actual.png)
+![Attitude filtered setpoint vs actual](../screenshots/methodology/setpoint_tracking_attitude_filtered_setpoint_vs_actual.png)
 
 ### Attitude tracking error
 
@@ -332,13 +332,13 @@ attitude_error = attitude_setpoint - attitude_actual
 
 Yaw error is wrapped to the range `[-180°, 180°]`.
 
-![Attitude error plot](screenshots/methodology/setpoint_tracking_attitude_error.png)
+![Attitude error plot](../screenshots/methodology/setpoint_tracking_attitude_error.png)
 
 ### Attitude tracking metrics table
 
 The attitude metrics table reports raw, filtered, raw time-compensated, and filtered time-compensated error metrics for the available roll, pitch, and yaw attitude signals.
 
-![Attitude metrics](screenshots/methodology/setpoint_tracking_attitude_metrics_table.png)
+![Attitude metrics](../screenshots/methodology/setpoint_tracking_attitude_metrics_table.png)
 
 ### Trajectory tracking summary cards
 
@@ -350,7 +350,7 @@ The **Trajectory Tracking** section shows three metric cards for the currently s
 
 The available trajectory signals depend on which `trajectory_setpoint` fields are present in the log.
 
-![Trajectory summary cards](screenshots/methodology/setpoint_tracking_trajectory_summary_cards.png)
+![Trajectory summary cards](../screenshots/methodology/setpoint_tracking_trajectory_summary_cards.png)
 
 ### Trajectory setpoint vs actual
 
@@ -369,7 +369,7 @@ Possible displayed signals include:
 
 For velocity-type trajectory signals, a raw time-compensated setpoint is also shown when available. For position-type signals, the current implementation focuses time compensation on the filtered position setpoint.
 
-![Trajectory setpoint vs actual](screenshots/methodology/setpoint_tracking_trajectory_setpoint_vs_actual.png)
+![Trajectory setpoint vs actual](../screenshots/methodology/setpoint_tracking_trajectory_setpoint_vs_actual.png)
 
 ### Trajectory filtered setpoint vs actual
 
@@ -382,7 +382,7 @@ The filtered trajectory plot compares:
 
 This plot is especially useful for position and altitude tracking, where raw setpoints may contain discrete changes or steps.
 
-![Trajectory filtered setpoint vs actual plot](screenshots/methodology/setpoint_tracking_trajectory_filtered_setpoint_vs_actual.png)
+![Trajectory filtered setpoint vs actual plot](../screenshots/methodology/setpoint_tracking_trajectory_filtered_setpoint_vs_actual.png)
 
 ### Trajectory tracking metrics table
 
@@ -399,11 +399,11 @@ The trajectory metrics table reports tracking-error metrics for all available tr
 - corresponding filtered rows
 - corresponding time-compensated rows where implemented
 
-![Trajectory metrics](screenshots/methodology/setpoint_tracking_trajectory_metrics_table.png)
+![Trajectory metrics](../screenshots/methodology/setpoint_tracking_trajectory_metrics_table.png)
 
 ## Derived metrics and formulas
 
-The detailed definitions for low-pass filtered setpoints, raw error, yaw wrapping, cross-correlation lag estimation, time-compensated error, and summary metrics are documented in [`methods/tracking-error-metrics.md`](methods/tracking-error-metrics.md).
+The detailed definitions for low-pass filtered setpoints, raw error, yaw wrapping, cross-correlation lag estimation, time-compensated error, and summary metrics are documented in [`methods/tracking-error-metrics.md`](../methods/tracking-error-metrics.md).
 
 This page applies those shared definitions to three tracking groups:
 
@@ -446,7 +446,7 @@ Large tracking error can be caused by many effects, including aggressive setpoin
 
 ### Time compensation is approximate
 
-The lag estimate is based on cross-correlation in the selected time window. It is useful when setpoint and response have similar shapes, but it can be unreliable when signals are nearly constant, very noisy, dominated by impulses, or not causally related. See [`methods/tracking-error-metrics.md`](methods/tracking-error-metrics.md) for the detailed lag-estimation method.
+The lag estimate is based on cross-correlation in the selected time window. It is useful when setpoint and response have similar shapes, but it can be unreliable when signals are nearly constant, very noisy, dominated by impulses, or not causally related. See [`methods/tracking-error-metrics.md`](../methods/tracking-error-metrics.md) for the detailed lag-estimation method.
 
 ### Filtered setpoints are diagnostic only
 
