@@ -91,7 +91,7 @@ These signals are controller integrator states, not measured body rates.
 
 ## Time base
 
-For the full shared method, see [`methods/time-base.md`](methods/time-base.md).
+For the full shared method, see [`methods/time-base.md`](docs/methods/time-base.md).
 
 All displayed signals use the relative time column:
 
@@ -120,7 +120,7 @@ The top of the page shows four actuator summary metrics:
 
 These values are currently calculated from the full actuator-output dataframe, not recomputed only for the selected time range.
 
-![Summary cards](screenshots/methodology/actuator_output_analysis_summary_cards.png)
+![Summary cards](docs/screenshots/methodology/actuator_output_analysis_summary_cards.png)
 
 ### Motor command overview
 
@@ -132,7 +132,7 @@ The motor command plot shows:
 
 The y-axis is labelled as motor command in microseconds with the note “assumed PWM”. This is a practical display convention. It should not be interpreted as verified physical PWM unless the vehicle and log schema confirm that the actuator output values represent PWM-equivalent commands.
 
-![Motor command overview](screenshots/methodology/actuator_output_analysis_motor_command_overview.png)
+![Motor command overview](docs/screenshots/methodology/actuator_output_analysis_motor_command_overview.png)
 
 ### Rotational response
 
@@ -144,7 +144,7 @@ The rotational-response plot shows body angular velocity:
 
 These signals are derived from `vehicle_angular_velocity` by converting from radians per second to degrees per second.
 
-![Rotational response](screenshots/methodology/actuator_output_analysis_rotational_response.png)
+![Rotational response](docs/screenshots/methodology/actuator_output_analysis_rotational_response.png)
 
 ### Roll / Pitch attitude
 
@@ -155,7 +155,7 @@ This plot shows:
 
 The plot helps compare motor-output behavior against the vehicle attitude response.
 
-![Roll / Pitch attitude](screenshots/methodology/actuator_output_analysis_roll_pitch_attitude.png)
+![Roll / Pitch attitude](docs/screenshots/methodology/actuator_output_analysis_roll_pitch_attitude.png)
 
 ### Yaw attitude
 
@@ -165,7 +165,7 @@ This plot shows:
 
 Yaw is plotted separately because its range and interpretation often differ from roll and pitch.
 
-![Yaw attitude](screenshots/methodology/actuator_output_analysis_yaw_attitude.png)
+![Yaw attitude](docs/screenshots/methodology/actuator_output_analysis_yaw_attitude.png)
 
 ### Vehicle acceleration
 
@@ -175,9 +175,9 @@ The acceleration plot shows:
 - `ay`: East acceleration
 - `az_up_m_s2`: upward acceleration derived from `az`
 
-The vertical acceleration sign convention is documented in [`methods/local-position-signals.md`](methods/local-position-signals.md).
+The vertical acceleration sign convention is documented in [`methods/local-position-signals.md`](docs/methods/local-position-signals.md).
 
-![Vehicle acceleration](screenshots/methodology/actuator_output_analysis_vehicle_acceleration.png)
+![Vehicle acceleration](docs/screenshots/methodology/actuator_output_analysis_vehicle_acceleration.png)
 
 ### Motor balance
 
@@ -190,7 +190,7 @@ The motor-balance plot shows:
 
 This plot is useful for identifying periods where one or more motors are commanded much higher or lower than the others.
 
-![Motor balance](screenshots/methodology/actuator_output_analysis_motor_balance.png)
+![Motor balance](docs/screenshots/methodology/actuator_output_analysis_motor_balance.png)
 
 ### Phase-based actuator statistics
 
@@ -203,13 +203,13 @@ The page assigns each actuator-output sample to the nearest detected flight phas
 
 These statistics make it easier to compare actuator demand across hover, climb, descent, cruise, or transition phases.
 
-![Phase-based actuator statistics](screenshots/methodology/actuator_output_analysis_phase_based_actuator_statistics.png)
+![Phase-based actuator statistics](docs/screenshots/methodology/actuator_output_analysis_phase_based_actuator_statistics.png)
 
 ### User-defined motor pair analysis
 
 The sidebar allows the user to define motor pairs from the active actuator output channels.
 
-![User-defined motor pair analysis sidebar](screenshots/methodology/actuator_output_analysis_user_defined_motor_pair_analysis_sidebar.png)
+![User-defined motor pair analysis sidebar](docs/screenshots/methodology/actuator_output_analysis_user_defined_motor_pair_analysis_sidebar.png)
 
 For each selected pair, the page shows:
 
@@ -218,7 +218,7 @@ For each selected pair, the page shows:
 
 The pair analysis is exploratory. It does not prove physical motor placement or airframe geometry unless the selected output channels are known to correspond to actual opposite motors on the vehicle.
 
-![User-defined motor pair analysis plots](screenshots/methodology/actuator_output_analysis_user_defined_motor_pair_analysis_plots.png)
+![User-defined motor pair analysis plots](docs/screenshots/methodology/actuator_output_analysis_user_defined_motor_pair_analysis_plots.png)
 
 ### Advanced controller diagnostics
 
@@ -230,7 +230,7 @@ Inside the **Advanced Controller Diagnostics** expander, the page shows rate-con
 
 These signals may help identify persistent controller effort or bias, but they are not direct proof of a mechanical problem.
 
-![Advanced controller diagnostics](screenshots/methodology/actuator_output_analysis_advanced_controller_diagnostics.png)
+![Advanced controller diagnostics](docs/screenshots/methodology/actuator_output_analysis_advanced_controller_diagnostics.png)
 
 ## Derived signals and formulas
 
