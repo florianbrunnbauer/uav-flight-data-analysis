@@ -37,14 +37,14 @@ Some analyses are only available when the corresponding PX4 ULog topics are pres
 
 Further information available at [Overview Methodology](docs/methodology/overview.md)
 
-### Basic Flight Statistics
+### Flight Phase Detection Test
 - Position over time plots
 - Velocity over time plots
 - Flight phase classification
 
-![Positional plots over time for a selected time period](docs/screenshots/Basic_Flight_Statistics.png)
+![Positional plots over time for a selected time period](docs/screenshots/Flight_Phase_Detection_Test.png)
 
-Further information available at [Basic Flight Statistics Methodology](docs/methodology/basic-flight-statistics.md)
+Further information available at [Flight Phase Detection Test Methodology](docs/methodology/flight-phase-detection-test.md)
 
 ### Hover Analysis
 - Detection of hover segments
