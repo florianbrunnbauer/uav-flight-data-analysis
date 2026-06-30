@@ -274,4 +274,4 @@ This project is under active development. Metrics, thresholds, and visualization
 
 ## License
 
-No license has been selected yet. Until a license is added, reuse and redistribution are not explicitly granted.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
