@@ -85,9 +85,9 @@ Further information available at [Setpoint Tracking Analysis Methodology](docs/m
 - IMU vibration health overview
 - Acceleration and gyro vibration metrics
 - Accel and gyro clipping counters
-- Time-domain sensor_accel and sensor_gyro plots
+- Time-domain `sensor_accel` and `sensor_gyro` plots
 - Time-resolved PSD heatmaps
-- Actuator_controls FFT analysis
+- `actuator_controls` FFT analysis
 - Per-phase vibration table
 - Exploratory actuator correlation plots
 
@@ -109,6 +109,8 @@ Further information available at [Vibration Analysis Methodology](docs/methodolo
 ├── requirements.txt        # Python dependencies
 ├── README.md               # Project overview and setup guide
 ├── docs/                   # Documentation
+│   ├── methodology/        # Methodology explanations
+│   ├── methods/            # Shared methods explanations
 │   └── screenshots/        # Dashboard screenshots
 ├── tests/                  # Future tests
 └── data/                   # Local flight logs, not committed
@@ -247,6 +249,8 @@ Flight logs are intentionally excluded because they may contain sensitive or pro
 - Location-related data
 
 Local flight logs can be placed in the `data/` folder. This folder should be excluded from version control, for example through `.gitignore`.
+
+This project can be tested with public PX4 ULog files from [PX4 Flight Review](https://review.px4.io/browse). For the screenshots shown in this repository, a public demonstration log was used. Download a `.ulg` log, start the dashboard, and upload it through the file uploader.
 
 ## Limitations
 

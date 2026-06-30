@@ -41,29 +41,3 @@ class UlgReader:
 
     def get_info(self) -> dict:
         return self.ulog.msg_info_dict
-
-
-if __name__ == "__main__":
-    log = UlgReader("Data/hexrotor.ulg")
-
-    # print("Available topics:")
-
-    # for topic in log.list_topics():
-    #     print(" -", topic)
-    #     current_topic = log.get_topic(topic)
-    #     current_topic.to_csv(f"{topic}.csv", index=False)
-
-    # # Example: read vehicle attitude
-    # attitude = log.get_topic("vehicle_attitude")
-    # print(attitude.head())
-
-    # # Save to CSV
-    # attitude.to_csv("vehicle_attitude.csv", index=False)
-
-    df = log.get_topic("vehicle_local_position")
-
-    plt.plot(df["time_s"], df["z"])
-    plt.xlabel("Time [s]")
-    plt.ylabel("Altitude / Down position z [m]")
-    plt.grid(True)
-    plt.show()
