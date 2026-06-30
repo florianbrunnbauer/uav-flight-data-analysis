@@ -227,6 +227,26 @@ After Streamlit starts, the displayed local URL should open, otherwise open it m
 
 Upload a PX4 `.ulg` file through the file uploader in the dashboard.
 
+## Testing
+
+The project includes automated tests for the core analysis and signal-processing functions.
+
+Run the tests with:
+
+```bash
+python -m pytest
+```
+
+On Windows with the recommended virtual environment:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest
+```
+
+The current test strategy is documented in [Testing Strategy](docs/testing.md).
+
+The tests use synthetic data and do not require real `.ulg` files.
+
 ## Example Workflow
 
 1. Start the Streamlit dashboard.
