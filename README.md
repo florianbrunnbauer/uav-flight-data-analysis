@@ -97,6 +97,7 @@ Further information available at [Setpoint Tracking Analysis Methodology](docs/m
 Further information available at [Vibration Analysis Methodology](docs/methodology/vibration-analysis.md)
 
 ## Repository Structure
+
 ```text
 .
 ├── app.py                  # Streamlit user interface
@@ -112,14 +113,27 @@ Further information available at [Vibration Analysis Methodology](docs/methodolo
 ├── tests/                  # Future tests
 └── data/                   # Local flight logs, not committed
 ```
+
+## Requirements
+
+- Python 3.13 or newer
+- PX4 `.ulg` log files
+- A local Python virtual environment is recommended
+
+
 ## Installation and Setup
 
-For Windows
+It is recommended to create a virtual environment, but not strictly required.
+
+### Windows
 
 Clone the repository:
 ```powershell
 git clone https://github.com/florianbrunnbauer/uav-flight-data-analysis.git
+```
 
+Change directory:
+```powershell
 cd .\uav-flight-data-analysis
 ```
 
@@ -128,54 +142,85 @@ Create a virtual environment:
 python -m venv .venv
 ```
 
-Activate the virtual environment:
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
 Install the dependencies:
 ```powershell
-pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-For Linux/macOS
+#### Without virtual environment
+
+Install the dependencies into your active Python environment:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+### Linux/macOS
 
 Clone the repository:
 ```bash
 git clone https://github.com/florianbrunnbauer/uav-flight-data-analysis.git
+```
 
+Change directory:
+```bash
 cd uav-flight-data-analysis
 ```
 
 Create a virtual environment:
 ```bash
-python -m venv .venv
-```
-
-Activate the virtual environment:
-```bash
-source .venv/bin/activate
+python3 -m venv .venv
 ```
 
 Install the dependencies:
 ```bash
-pip install -r requirements.txt
+./.venv/bin/python -m pip install -r requirements.txt
+```
+
+#### Without virtual environment
+
+Install the dependencies into your active Python environment:
+
+```bash
+python3 -m pip install -r requirements.txt
 ```
 
 Tested with Python 3.13 on Windows 11.
 
-## Requirements
-
-- Python 3.13 or newer
-- PX4 `.ulg` log files
-- A local Python virtual environment is recommended
-
 ## Running the Dashboard
 
-Start the app with:
+### Windows 
+
+#### With virtual environment
+
+Run the app with:
 ```powershell
-streamlit run app.py
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
+
+#### Without virtual environment
+
+Run the app with:
+```powershell
+python -m streamlit run app.py
+```
+
+### Linux/macOS
+
+#### With virtual environment
+
+Run the app with:
+```bash
+./.venv/bin/python -m streamlit run app.py
+```
+
+#### Without virtual environment
+
+Run the app with:
+```bash
+python3 -m streamlit run app.py
+```
+
 After Streamlit starts, the displayed local URL should open, otherwise open it manually in your browser.
 
 Upload a PX4 `.ulg` file through the file uploader in the dashboard.
