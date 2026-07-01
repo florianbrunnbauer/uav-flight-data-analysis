@@ -24,6 +24,12 @@ The dashboard should help answer questions such as:
 
 The tool supports engineering judgment, but it does not replace manual validation, controlled testing, or vehicle-specific safety assessment.
 
+## Case Study
+
+A complete example analysis of a public PX4 hexrotor log is documented here:
+
+[Case Study: Public PX4 Hexrotor Log Analysis](docs/case-study/case-study-public-px4-log.md)
+
 ## Main Features
 
 Some analyses are only available when the corresponding PX4 ULog topics are present.
