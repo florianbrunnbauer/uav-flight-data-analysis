@@ -107,11 +107,7 @@ The current tests do not verify:
 
 ## Future Extensions
 
-Useful future additions would be:
-
-- Optional local integration test with one `.ulg` file stored outside Git
 - Streamlit startup smoke test
-- GitHub Actions workflow
-- Regression tests for known bugs
+- Optional local integration test with one `.ulg` file stored outside Git
 - Tests for missing-topic behavior
 - Tests for edge cases such as empty DataFrames and NaN-only signals
