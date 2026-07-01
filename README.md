@@ -296,7 +296,7 @@ The tool is an engineering support dashboard, not an automatic pass/fail certifi
 
 ## Project Status
 
-This project is under active development. Metrics, thresholds, and visualizations may change as the analysis methodology is refined.
+This repository represents a stable portfolio milestone of an actively developed UAV flight-log analysis tool. The current version includes core analysis pages, documentation, automated tests, and one public-log case study. Future work focuses on refactoring, estimator validation, and GPS validation.
 
 ## License
 
