@@ -9,21 +9,21 @@
 Commit:
 
 ```text
-<8e0db925794de5b27c28eeb7f24eedd18bde4225>
+8e0db925794de5b27c28eeb7f24eedd18bde4225
 ```
 
 Branch:
 
 ```text
-<main>
+main
 ```
 
 ## Environment
 
-- Operating system: `<Windows 11>`
-- Python version: `<Python 3.13>`
+- Operating system: `Windows 11`
+- Python version: `Python 3.13`
 - Test framework: `pytest`
-- Installation method: `<venv>`
+- Installation method: `venv`
 
 ## Command
 
@@ -51,7 +51,7 @@ The test run covered the core analysis-function tests:
 ## Result
 
 ```text
-<33 passed in 0.83s>
+33 passed in 0.83s
 ```
 
 ## Failed Tests
