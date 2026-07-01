@@ -85,7 +85,7 @@ Further information available at [Actuator Output Analysis Methodology](docs/met
 
 ![Attitude tracking](docs/screenshots/Setpoint_Tracking_Attitude_Tracking.png)
 
-Further information available at [Setpoint Tracking Analysis Methodology](docs/methodology/setpoint-tracking-analysis.md)
+Further information available at [Setpoint Tracking Analysis Methodology](docs/methodology/set-point-tracking-analysis.md)
 
 ### Vibration Analysis
 - IMU vibration health overview
